@@ -57,6 +57,16 @@
     font-size: 17px;
 }
 
+.approve-icon {
+    color: #4caf50;
+}
+.decline-icon {
+    color: #f44336;
+}
+.pending-icon {
+    color: #ff9800;
+}
+
 .snackbar.success {
     background-color: #4caf50;
 }

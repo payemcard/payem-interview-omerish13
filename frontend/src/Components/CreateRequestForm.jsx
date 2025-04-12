@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { HOST_WITH_PORT } from "../consts";
 import './CreateRequestForm.css';
+import { IoMdHome } from "react-icons/io";
 
 const CreateRequestForm = () => {
   const [name, setName] = useState('');
@@ -10,6 +11,7 @@ const CreateRequestForm = () => {
   const [currency, setCurrency] = useState('USD');
   const [employeeName, setEmployeeName] = useState('');
   const [status, setStatus] = useState('Pending');
+  const [requestType, setRequestType] = useState('');  // State to handle request type
   const [responseMessage, setResponseMessage] = useState(null);  // State to handle response message
 
   const handleInputChange = (setter) => (e) => {
@@ -26,6 +28,7 @@ const CreateRequestForm = () => {
       currency,
       employee_name: employeeName,
       status,
+      request_type: requestType
     };
 
     try {
@@ -47,19 +50,20 @@ const CreateRequestForm = () => {
 
   return (
     <div className="form-container">
+        <button onClick={() => window.location.href = '/'} className="back-button"><IoMdHome /></button>
       <h1>Create Request Form</h1>
       <form onSubmit={handleSubmit} className="form">
         <div className="form-group">
           <label>Name:</label>
-          <input type="text" value={name} onChange={handleInputChange(setName)} required />
+          <input type="text" value={name} onChange={handleInputChange(setName)} required/>
         </div>
         <div className="form-group">
           <label>Description:</label>
-          <input type="text" value={description} onChange={handleInputChange(setDescription)} required />
+          <input type="text" value={description} onChange={handleInputChange(setDescription)} required/>
         </div>
         <div className="form-group">
           <label>Amount:</label>
-          <input type="number" value={amount} onChange={handleInputChange(setAmount)} required />
+          <input type="number" value={amount} onChange={handleInputChange(setAmount)} required/>
         </div>
         <div className="form-group">
           <label>Currency:</label>
@@ -71,14 +75,21 @@ const CreateRequestForm = () => {
         </div>
         <div className="form-group">
           <label>Employee Name:</label>
-          <input type="text" value={employeeName} onChange={handleInputChange(setEmployeeName)} required />
+          <input type="text" value={employeeName} onChange={handleInputChange(setEmployeeName)} required/>
+        </div>
+        <div className="form-group">
+          <label>Request Type:</label>
+          <select value={requestType} onChange={handleInputChange(setRequestType)} required>
+            <option value="Purchase">Purchase</option>
+            <option value="Reimbursement">Reimbursement</option>
+          </select>
         </div>
         <button type="submit" className="submit-button">Create Request</button>
       </form>
       {responseMessage && (
-        <div className={`response-message ${responseMessage.type}`}>
-          {responseMessage.text}
-        </div>
+          <div className={`response-message ${responseMessage.type}`}>
+            {responseMessage.text}
+          </div>
       )}
     </div>
   );

@@ -74,6 +74,20 @@
     background-color: #e53935;
 }
 
+.back-button {
+    font-size: 25px;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: white;
+    color: #007bff;
+    border: 1px solid #007bff;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.back-button:hover {
+    background-color: #f1f1f1;
+}
+
 .snackbar {
     position: fixed;
     bottom: 16px;
