@@ -42,12 +42,17 @@ const ShowRequests = () => {
         });
     };
 
+    function includesIgnoreCase(source = '', target = '') {
+        return source.toLowerCase().includes(target.toLowerCase());
+    }
+
+
     const handleApplyFilters = () => {
         const filteredRequests = requests.filter((request) => {
             return (
-                (filters.name ? request.name.includes(filters.name) : true) &&
-                (filters.status ? request.status.includes(filters.status) : true) &&
-                (filters.employeeName ? request.employee_name.includes(filters.employeeName) : true)
+              (filters.name ? includesIgnoreCase(request.name, filters.name) : true) &&
+              (filters.status ? includesIgnoreCase(request.status, filters.status) : true) &&
+              (filters.employeeName ? includesIgnoreCase(request.employee_name, filters.employeeName) : true)
             );
         });
         // change the state of requests to the filtered requests temporarily
@@ -74,7 +79,7 @@ const ShowRequests = () => {
     useEffect(() => {
         fetchRequests();
 
-    })
+    },[]);
     return (
         <div className="requests-container">
             <button onClick={() => navigate('/')} className="back-button"><IoMdHome /></button>

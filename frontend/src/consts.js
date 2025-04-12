@@ -1,1 +1,1 @@
-export const HOST_WITH_PORT = 'http://127.0.0.1:5000'
+export const HOST_WITH_PORT = 'http://127.0.0.1:8888'
