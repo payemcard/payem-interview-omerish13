@@ -5,10 +5,10 @@ from flask_cors import CORS
 from routers.requests import requests
 
 app = Flask(__name__)
-CORS(app)
-
+CORS(app, resources={r"/*": {"origins": "*"}})
 app.register_blueprint(requests)
 
 
+
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(host="0.0.0.0",port=8888)
