@@ -1,4 +1,4 @@
-from models.base import Request, CustomJSONEncoder
+from models.base import Request, CustomJSONEncoder, CustomJSONDecoder
 from pathlib import Path
 import json
 
@@ -144,7 +144,7 @@ class Database:
             f.write(json.dumps(self.db, cls=CustomJSONEncoder))
     def read_db(self):
         with Path("db.json").open("r") as f:
-            self.db = json.loads(f.read())
+            self.db = json.loads(f.read(), cls=CustomJSONDecoder)
             self.next_id = len(self.db) + 1
 
     def get_request(self, request_id):
