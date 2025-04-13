@@ -93,3 +93,38 @@ def test_decline_request_not_found(client):
     response = client.put('/api/requests/999/decline')
     assert response.status_code == 404
     assert 'error' in response.json
+
+def test_invalid_json(client):
+    """Test the POST /api/requests route with invalid JSON."""
+    response = client.post('/api/requests', data='{"invalid_json": true}')
+    assert response.status_code == 415
+
+def test_invalid_request_type(client):
+    """Test the POST /api/requests route with an invalid request type."""
+    request_data = {
+        'name': 'Invalid Request Type',
+        'description': 'Request with invalid request type',
+        'amount': 100,
+        'currency': 'USD',
+        'employee_name': 'John Doe',
+        'status': 'Pending',
+        'request_type': 'InvalidType'  # Invalid request type
+    }
+    response = client.post('/api/requests', json=request_data)
+    assert response.status_code == 400
+    assert 'error' in response.json
+
+def test_wrong_vars_type(client):
+    """Test the POST /api/requests route with wrong variable types."""
+    request_data = {
+        'name': 123,  # Wrong type
+        'description': 'Request with wrong variable types',
+        'amount': 'one hundred',  # Wrong type
+        'currency': 456,  # Wrong type
+        'employee_name': True,  # Wrong type
+        'status': None,  # Wrong type
+        'request_type': 'Purchase'
+    }
+    response = client.post('/api/requests', json=request_data)
+    assert response.status_code == 400
+    assert 'error' in response.json
