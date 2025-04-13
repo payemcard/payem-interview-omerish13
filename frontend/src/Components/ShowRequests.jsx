@@ -18,6 +18,7 @@ const ShowRequests = () => {
         name: '',
         status: '',
         employeeName: '',
+        requestType: '',
     });
     const navigate = useNavigate();
 
@@ -52,7 +53,8 @@ const ShowRequests = () => {
             return (
               (filters.name ? includesIgnoreCase(request.name, filters.name) : true) &&
               (filters.status ? includesIgnoreCase(request.status, filters.status) : true) &&
-              (filters.employeeName ? includesIgnoreCase(request.employee_name, filters.employeeName) : true)
+              (filters.employeeName ? includesIgnoreCase(request.employee_name, filters.employeeName) : true) &&
+              (filters.requestType ? includesIgnoreCase(request.request_type, filters.requestType) : true)
             );
         });
         // change the state of requests to the filtered requests temporarily
@@ -95,6 +97,7 @@ const ShowRequests = () => {
                         <th>Amount</th>
                         <th>Currency</th>
                         <th>Employee Name</th>
+                        <th>Type</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -104,6 +107,7 @@ const ShowRequests = () => {
                             key={request.id}
                             onClick={() => handleRowClick(request.id)}
                             className="clickable-row"
+                            title={`Created At: ${request.created_at}\nUpdated At: ${request.updated_at || 'Not Updated'}`}
                         >
                             <td>{request.id}</td>
                             <td>{request.name}</td>
@@ -111,6 +115,7 @@ const ShowRequests = () => {
                             <td>{request.amount}</td>
                             <td>{request.currency}</td>
                             <td>{request.employee_name}</td>
+                            <td>{request.request_type}</td>
                             <td>{handleStatusIcons(request.status)}</td>
                         </tr>
                     ))}

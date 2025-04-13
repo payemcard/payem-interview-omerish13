@@ -41,6 +41,21 @@ const Filters = ({filters, onFilterChange, onApplyFilters}) => {
                     />
                 </label>
             </div>
+            <div className="filter-group">
+                <label className="filter-label">
+                    Request Type:
+                    <select
+                        name="requestType"
+                        value={filters.requestType}
+                        onChange={onFilterChange}
+                        className="filter-input"
+                    >
+                        <option value="">All</option>
+                        <option value="Purchase">Purchase</option>
+                        <option value="Reimbursement">Reimbursement</option>
+                    </select>
+                </label>
+            </div>
             <button onClick={onApplyFilters} className="apply-filters-button">
                 Apply Filters
             </button>
