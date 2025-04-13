@@ -5,7 +5,7 @@ def get_data() -> list | dict:
     This function retrieves all requests from the database.
     It returns a list of dictionaries, each representing a request.
 
-    Returns:
+    :return:
     list: A list of dictionaries representing all requests in the database.
     """
 
@@ -17,11 +17,9 @@ def get_request(request_id: int) -> dict:
     This function retrieves a specific request from the database by its ID.
     It returns a dictionary representing the request.
 
-    Arguments:
-    request_id (int): The ID of the request to retrieve.
+    :param request_id: The ID of the request to retrieve.
 
-    Returns:
-    dict: A dictionary representing the request with the given ID.
+    :return: A dictionary representing the request if found, otherwise None.
     """
 
     # Return the request with the given ID

@@ -131,27 +131,77 @@ class Database:
     def __init__(self):
         self.db = []
         self.next_id = len(self.db) + 1
-    def get_db(self):
+
+    def get_db(self) -> list:
+        """
+        This function returns the database.
+        It returns a list of dictionaries, each representing a request.
+        :return:
+        list: A list of dictionaries representing all requests in the database.
+        """
         return self.db
-    def get_next_id(self):
+
+    def get_next_id(self) -> int:
+        """
+        This function returns the next ID for a new request.
+        :return:
+        int: The next ID for a new request.
+        """
         return self.next_id
-    def add_request(self, row: Request):
+
+    def add_request(self, row: Request) -> None:
+        """
+        This function adds a new request to the database.
+        :param row:
+        Request: A dictionary representing the request to be added.
+        :return:
+        None
+        :raises ValueError: If the request is invalid.
+        """
         self.db.append(row)
         self.next_id = len(self.db) + 1
         self.write_db()
-    def write_db(self):
+
+    def write_db(self) -> None:
+        """
+        This function writes the database to a JSON file.
+        It serializes the database using a custom JSON encoder.
+        :return:
+        None
+        :raises FileNotFoundError: If the database file does not exist.
+        """
         with Path("db.json").open("w") as f:
             f.write(json.dumps(self.db, cls=CustomJSONEncoder))
-    def read_db(self):
+
+    def read_db(self) -> None:
+        """
+        This function reads the database from a JSON file.
+        It deserializes the database using a custom JSON decoder.
+        :return:
+        None
+        :raises FileNotFoundError: If the database file does not exist.
+        """
         with Path("db.json").open("r") as f:
             self.db = json.loads(f.read(), cls=CustomJSONDecoder)
             self.next_id = len(self.db) + 1
 
-    def get_request(self, request_id):
+    def get_request(self, request_id: int) -> dict:
+        """
+        This function retrieves a specific request from the database by its ID.
+        :param request_id:
+        int: The ID of the request to retrieve.
+        :return:
+        dict: A dictionary representing the request with the given ID.
+        :raises ValueError: If the request ID is out of range.
+        """
         if request_id < 1 or request_id > len(self.db):
             raise ValueError("Request ID out of range")
         return self.db[request_id - 1]
 
 
 db = Database()
-db.read_db()
+try:
+    db.read_db()
+except FileNotFoundError:
+    # If the database file does not exist, create an empty database
+    db.write_db()

@@ -12,11 +12,11 @@ def create_request(request_data: dict) -> dict:
     It assigns a new ID, sets the created_at and updated_at timestamps,
     and sets the status to "Pending".
 
-    Arguments:
-    request_data (dict): A dictionary containing the request data.
+    :param request_data: A dictionary representing the request data.
 
-    Returns:
-    dict: The created request data with the new ID and timestamps.
+    :return: A dictionary representing the created request.
+
+    :raises ValueError: If the request data is invalid.
     """
     # Assign a new ID to the request
     request_data['id'] = db.get_next_id()
@@ -42,12 +42,12 @@ def approve_request(request_id: int, approved_amount: float) -> dict | None:
     It takes the request ID as input and updates the status to "Approved",
     sets the approved_amount, and updates the updated_at timestamp.
 
-    Arguments:
-    request_id (int): The ID of the request to approve.
-    approved_amount (float): The amount to approve.
+    :param request_id: The ID of the request to approve.
+    :param approved_amount: The amount to approve for the request.
 
-    Returns:
-    dict | None: The updated request data if found, otherwise None.
+    :return: The updated request data if found, otherwise None.
+
+    :raises ValueError: If the request is not found.
     """
     # Get the request data from the database
     try:
@@ -74,11 +74,9 @@ def decline_request(request_id: int) -> dict | None:
     It takes the request ID as input and updates the status to "Declined"
     and updates the updated_at timestamp.
 
-    Arguments:
-    request_id (int): The ID of the request to decline.
+    :param request_id: The ID of the request to decline.
 
-    Returns:
-    dict | None: The updated request data if found, otherwise None.
+    :return: The updated request data if found, otherwise None.
     """
     # Get the request data from the database
     try:
