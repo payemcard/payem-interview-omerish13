@@ -1,4 +1,5 @@
 from services.db import db, Request
+from models.base import RequestStatus
 from datetime import datetime
 import pytz
 
@@ -58,7 +59,7 @@ def approve_request(request_id: int, approved_amount: float) -> dict | None:
 
     if request_data:
         # Update the status and approved_amount
-        request_data['status'] = 'Approved'
+        request_data['status'] = RequestStatus.APPROVED
         request_data['approved_amount'] = approved_amount
         request_data['updated_at'] = datetime.now(tz).strftime('%Y-%m-%d %H:%M:%S')
 
@@ -87,7 +88,7 @@ def decline_request(request_id: int) -> dict | None:
 
     if request_data:
         # Update the status
-        request_data['status'] = 'Declined'
+        request_data['status'] = RequestStatus.DECLINED
         request_data['updated_at'] = datetime.now(tz).strftime('%Y-%m-%d %H:%M:%S')
 
         # Save the updated request to the database
